@@ -1,5 +1,3 @@
-[![Build Status](https://app.travis-ci.com/ps173/markdown-editor.svg?branch=main)](https://app.travis-ci.com/ps173/markdown-editor)
-
 # A simple markdown editor with preview.
 
 This is a sample markdown editor created with next-js.
