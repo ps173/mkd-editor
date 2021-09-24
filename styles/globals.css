@@ -1,0 +1,61 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100vh !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.md {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+
+.preview {
+  padding-left: 4%;
+  padding-right: 4%;
+  background-color: rgb(33, 35, 41);
+  color: rgb(233, 233, 233);
+  width: 50%;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.editor-area {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100vh;
+}
+
+h1 {
+  color: #5944d1;
+}
+
+a {
+  font-style: normal;
+  text-decoration: none;
+  color: #d64d9d;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+  color: olivedrab;
+  padding: 4%;
+}
+
+li {
+  color: cadetblue;
+}
