@@ -69,6 +69,7 @@ const Editor: React.FC<Props> = ({ text, setText, colorscheme }) => {
         value={text}
         options={options}
         onChange={(_editor, _data, val) => handleChange(val)}
+        className="full-height"
       />
       <input
         type="file"
