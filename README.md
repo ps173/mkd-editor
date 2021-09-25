@@ -8,3 +8,8 @@ It provides :
 - Github style markdown
 - Loading local markdown files
 - Saving the markdown file
+
+# Contributors
+
+Thanks to :
+ - [@tusharsadhwani](https://github.com/tusharsadhwani)
