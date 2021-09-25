@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
       <div className="Links">
         <ul>
           <li>
-            <a href="mailto:prathamsharma173@gmail.com">Contact me</a>
+            <a href="https://github.com/ps173/mkd-editor">Check On Github</a>
           </li>
         </ul>
       </div>
