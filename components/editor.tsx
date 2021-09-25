@@ -1,32 +1,16 @@
 import React, { Dispatch, SetStateAction } from "react";
 // import CodeMirror from "@uiw/react-codemirror";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material-palenight.css";
-import "codemirror/theme/duotone-dark.css";
-import "codemirror/theme/3024-night.css";
-import "codemirror/theme/base16-dark.css";
-import "codemirror/theme/ayu-mirage.css";
-import "codemirror/theme/ayu-dark.css";
-import "codemirror/theme/cobalt.css";
-import "codemirror/theme/dracula.css";
-import "codemirror/theme/monokai.css";
-import "codemirror/mode/markdown/markdown";
-import { UnControlled as CodeMirror } from "react-codemirror2";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-markdown";
+import "ace-builds/src-noconflict/theme-dracula";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-nord_dark";
+import "ace-builds/src-noconflict/theme-tomorrow_night";
+import "ace-builds/src-noconflict/ext-language_tools";
 import { saveAs } from "file-saver";
 
-const colorschemes = [
-  "material-palenight",
-  "monokai",
-  "base16-dark",
-  "dracula",
-  "duotone-dark",
-  "3024-night",
-  "cobalt",
-  "ayu-dark",
-  "ayu-mirage",
-];
-const RandomColorscheme =
-  colorschemes[Math.floor(Math.random() * colorschemes.length)];
+const Themes = ["dracula", "tomorrow_night", "nord_dark", "monokai"];
+const RandomTheme = Themes[Math.floor(Math.random() * Themes.length)];
 
 interface Props {
   text: string;
@@ -55,20 +39,24 @@ const Editor: React.FC<Props> = ({ text, setText, colorscheme }) => {
     saveAs(blob, "gen.md");
   };
 
-  const options = {
-    lineNumbers: true,
-    theme: RandomColorscheme, // for random colorschemes
-    mode: "markdown",
-    autofocus: true,
-    spellcheck: true,
-  };
-
   return (
     <div className="editor-area">
-      <CodeMirror
+      <AceEditor
         value={text}
-        options={options}
-        onChange={(_editor, _data, val) => handleChange(val)}
+        mode="markdown"
+        height="100%"
+        fontSize={20}
+        width="100%"
+        highlightActiveLine={true}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+        }}
+        onChange={(val) => {
+          handleChange(val);
+        }}
+        theme={RandomTheme}
         className="full-height"
       />
       <input
