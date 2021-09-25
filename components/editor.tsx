@@ -35,7 +35,7 @@ const Editor: React.FC<Props> = ({ text, setText }) => {
       <CodeMirror
         value={text}
         theme="dark"
-        height="760px"
+        height="800px"
         lang="markdown"
         onChange={(val) => handleChange(val)}
         extensions={[markdownLanguage, oneDark]}
@@ -43,9 +43,11 @@ const Editor: React.FC<Props> = ({ text, setText }) => {
       <input
         type="file"
         accept="/*.md/"
+        className="Fileinput"
         onChange={(e) => handleFileChange(e)}
       />
-      <button onClick={handleClick}> Save the files</button>
+      <div className="FakeFileInput">Upload Files</div>
+      <button onClick={handleClick}>Save the files</button>
     </div>
   );
 };
