@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Head from "next/head";
 import type { NextPage } from "next";
-import Editor from "../components/editor";
+import dynamic from "next/dynamic";
+const Editor = dynamic(import("../components/editor"), { ssr: false });
 import Preview from "../components/preview";
 import Navbar from "../components/Navbar";
 
