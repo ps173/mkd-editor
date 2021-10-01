@@ -6,18 +6,34 @@ import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-tomorrow_night";
+import "ace-builds/src-noconflict/theme-gruvbox";
+import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/theme-terminal";
+import "ace-builds/src-noconflict/theme-idle_fingers";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { saveAs } from "file-saver";
 
-const Themes = ["dracula", "tomorrow_night", "nord_dark", "monokai"];
-const RandomTheme = Themes[Math.floor(Math.random() * Themes.length)];
+const Themes = [
+  "dracula",
+  "tomorrow_night",
+  "nord_dark",
+  "monokai",
+  "solarized_dark",
+  "gruvbox",
+  "idle_fingers",
+  "terminal",
+];
+
+// super secret easter egg
+const CurrentTheme = localStorage.getItem("colorscheme")
+  ? localStorage.getItem("colorscheme")!.toString()
+  : Themes[Math.floor(Math.random() * Themes.length)];
 
 interface Props {
   text: string;
   setText: Dispatch<SetStateAction<string>>;
-  colorscheme?: string;
 }
-const Editor: React.FC<Props> = ({ text, setText, colorscheme }) => {
+const Editor: React.FC<Props> = ({ text, setText }) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fr = new FileReader();
     fr.onload = () => {
@@ -56,7 +72,7 @@ const Editor: React.FC<Props> = ({ text, setText, colorscheme }) => {
         onChange={(val) => {
           handleChange(val);
         }}
-        theme={RandomTheme}
+        theme={CurrentTheme}
         className="full-height"
       />
       <input
