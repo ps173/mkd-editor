@@ -1,8 +1,17 @@
 import marked from "marked";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import hljs from "highlight.js";
+// import "highlight.js/styles/base16/github-dark.css";
+
 interface Props {
   text: string;
 }
+
+marked.setOptions({
+  highlight: function (code) {
+    return hljs.highlightAuto(code).value;
+  },
+});
 
 const Preview: React.FC<Props> = ({ text }) => {
   const [shownmarkdown, setShownmarkdown] = useState(marked(text));
@@ -15,7 +24,8 @@ const Preview: React.FC<Props> = ({ text }) => {
       <div
         className="preview"
         dangerouslySetInnerHTML={{ __html: shownmarkdown }}
-      ></div>
+      >
+      </div>
     </>
   );
 };
