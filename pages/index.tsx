@@ -7,8 +7,12 @@ import Preview from "../components/preview";
 import Navbar from "../components/Navbar";
 
 const Home: NextPage = () => {
-  const [text, setText] = useState<string>("# Hellow!");
-
+  const [text, setText] = useState<string>(`
+# Hellow!
+<!--- The editor changes colorscheme
+everytime you reload it --->
+Yo
+`);
   return (
     <>
       <Head>
