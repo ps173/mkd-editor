@@ -1,5 +1,10 @@
-import React, { Dispatch, SetStateAction } from "react";
-// import CodeMirror from "@uiw/react-codemirror";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useState,
+  useEffect,
+} from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-dracula";
@@ -34,11 +39,14 @@ interface Props {
   setText: Dispatch<SetStateAction<string>>;
 }
 const Editor: React.FC<Props> = ({ text, setText }) => {
+  // Fix/HACK: Seperated editor state from the original text so that I can preview it using showPreview
+  // Search For showPreview
+  const [editorState, setEditorState] = useState(text);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fr = new FileReader();
     fr.onload = () => {
       if (fr.result != null) {
-        setText(fr.result.toString());
+        setEditorState(fr.result.toString());
       }
     };
     if (e.target.files != null) {
@@ -46,9 +54,26 @@ const Editor: React.FC<Props> = ({ text, setText }) => {
     }
   };
 
-  const handleChange = (val: string) => {
-    setText(val);
-  };
+  // Fun Thing Not very useful
+  useEffect(() => {
+    console.clear();
+    console.table(Themes);
+    console.log(
+      "Do this To Change Or Set Colorscheme ( Will be applied only on reload )\n\n\t localStorage.setItem('colorscheme', nameofthecolorscheme)"
+    );
+  }, []);
+
+  const handleChange = useCallback(
+    (val: string) => {
+      setEditorState(val);
+    },
+    [setEditorState]
+  );
+
+  // This Changes the text so that preview component can render it.
+  const showPreview = useCallback(() => {
+    setText(editorState);
+  }, [setText, editorState]);
 
   const handleClick = () => {
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
@@ -58,7 +83,7 @@ const Editor: React.FC<Props> = ({ text, setText }) => {
   return (
     <div className="editor-area">
       <AceEditor
-        value={text}
+        value={editorState}
         mode="markdown"
         height="100%"
         fontSize={20}
@@ -67,7 +92,6 @@ const Editor: React.FC<Props> = ({ text, setText }) => {
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
-          enableSnippets: true,
         }}
         onChange={(val) => {
           handleChange(val);
@@ -83,6 +107,9 @@ const Editor: React.FC<Props> = ({ text, setText }) => {
       />
       <div className="FakeFileInput">Upload Files</div>
       <button onClick={handleClick}>Save the files</button>
+      <button className="showPreviewButton" onClick={showPreview}>
+        Preview
+      </button>
     </div>
   );
 };
